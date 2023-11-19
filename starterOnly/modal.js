@@ -33,69 +33,79 @@ closeIcon.addEventListener('click', function () {
 
 
 function validateForm() {
-  const firstName = document.getElementById('first').value;
-  const firstNameError = document.querySelector('.formData[data-error="Erreur de prénom"]');
   let errorExist = false;
   
-  if (firstName.length < 2) {
-    firstNameError.setAttribute('data-error-visible', 'true');
-    errorExist = true;
-  } else {
-    firstNameError.setAttribute('data-error-visible', 'false');
-  }
+  // Validate First Name
+  const firstName = document.getElementById('first').value;
+  const firstNameForm = document.getElementById('firstNameForm');
+  const conditionFirstName = firstName.length < 2;
+  const firstNameError = 'Veuillez entrer 2 caractères ou plus pour le champ du prénom.'
+  verifInput(conditionFirstName, firstNameForm, errorExist, firstNameError);
 
   // Validate Last Name
   const lastName = document.getElementById('last').value;
-  const lastNameError = document.querySelector('.formData[data-error="Erreur de nom"]');
-  if (lastName.length < 2) {
-    lastNameError.setAttribute('data-error-visible', 'true');
-    errorExist = true;
-  } else {
-    lastNameError.setAttribute('data-error-visible', 'false');
-  }
+  const lastNameForm = document.getElementById('lastNameForm');
+  const lastNameCondition = lastName.length < 2
+  const lastNameError = 'Veuillez entrer 2 caractères ou plus pour le champ du nom.'
+  verifInput(lastNameCondition, lastNameForm, errorExist, lastNameError);
+
 
   // Validate Email
   const email = document.getElementById('email').value;
-  const emailError = document.querySelector('.formData[data-error="Mail non valide"]')
+  const emailForm = document.getElementById('emailForm');
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    emailError.setAttribute('data-error-visible', 'true');
+    emailForm.setAttribute('data-error-visible', 'true');
+    emailForm.setAttribute('data-error', 'Email non valide.');
     errorExist = true;
   } else {
-    emailError.setAttribute('data-error-visible', 'false');
+    emailForm.setAttribute('data-error-visible', 'false');
   }
 
-  // Validate Quantity
-  const quantity = document.getElementById('quantity').value;
-  const quantityError = document.querySelector('.formData[data-error="Quantité non valide"]');
-  console.log(document.getElementById('quantity').value, quantity === '', isNaN(quantity));
-  if (quantity === '' || quantity < 0) {
-    quantityError.setAttribute('data-error-visible', 'true');
+  // Validate birthdate
+  const birthdate = document.getElementById('birthdate').value;
+  const birthdateForm = document.getElementById('birthdateForm');
+  if (!birthdate) {
+    birthdateForm.setAttribute('data-error-visible', 'true');
+    birthdateForm.setAttribute('data-error', 'Vous devez entrer votre date de naissance.');
     errorExist = true;
   } else {
-    quantityError.setAttribute('data-error-visible', 'false');
+    birthdateForm.setAttribute('data-error-visible', 'false');
+  }
+  // Validate Quantity
+  const quantity = document.getElementById('quantity').value;
+  const quantityForm = document.getElementById('quantityForm');
+  if (quantity === '' || quantity < 0) {
+    quantityForm.setAttribute('data-error-visible', 'true');
+    quantityForm.setAttribute('data-error', 'Veuillez entrer 2 caractères ou plus pour le champ du prénom.');
+    errorExist = true;
+  } else {
+    quantityForm.setAttribute('data-error-visible', 'false');
   }
   
   // Validate Location
   const selectedLocation = document.querySelector('input[name="location"]:checked');
-  const selectedLocationError = document.querySelector('.formData[data-error="Erreur de localisation"]');
+  const selectedLocationForm = document.getElementById('selectedLocationForm');
   if (!selectedLocation) {
-    selectedLocationError.setAttribute('data-error-visible', 'true');
+    selectedLocationForm.setAttribute('data-error-visible', 'true');
+    selectedLocationForm.setAttribute('data-error', 'Vous devez choisir une option.');
     errorExist = true;
   } else {
-    selectedLocationError.setAttribute('data-error-visible', 'false');
+    selectedLocationForm.setAttribute('data-error-visible', 'false');
   }
 
   // Validate conditions générales
   const checkbox1 = document.getElementById('checkbox1');
-  const checkbox1Error = document.querySelector('.formData[data-error="Erreur de conditions générales"]');
+  const checkbox1Form = document.getElementById('checkbox1Form');
+  console.log('ppp ', checkbox1Form);
   if (!checkbox1.checked) {
-    checkbox1Error.setAttribute('data-error-visible', 'true');
+    checkbox1Form.setAttribute('data-error-visible', 'true');
+    checkbox1Form.setAttribute('data-error', 'Vous devez vérifier que vous acceptez les termes et conditions.');
     errorExist = true;
   } else {
-    checkbox1Error.setAttribute('data-error-visible', 'false');
+    checkbox1Form.setAttribute('data-error-visible', 'false');
   }
-  
+
   // Si il existe un problème je ne submit pas
   if (errorExist) {
     return false;
@@ -103,6 +113,17 @@ function validateForm() {
 
   // Si tout est OK je submit le formulaire
   document.forms["reserve"].submit();
+}
+
+
+function verifInput(condition, nameForm, errorExist, errorMessage) {
+  if (condition) {
+    nameForm.setAttribute('data-error-visible', 'true');
+    nameForm.setAttribute('data-error', errorMessage);
+    errorExist = true;
+  } else {
+    nameForm.setAttribute('data-error-visible', 'false');
+  }
 }
 
 

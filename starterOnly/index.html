@@ -56,28 +56,28 @@
         <span class="close"></span>
         <div class="modal-body">
           <form name="reserve" action="index.html" method="get" onsubmit="return validate();">
-            <div class="formData" data-error="Erreur de prénom" data-error-visible="false">
+            <div class="formData" id="firstNameForm">
               <label for="first">Prénom</label><br>
               <input class="text-control" type="text" id="first" name="first" minlength="2" required />
             </div>
-            <div class="formData" data-error="Erreur de nom" data-error-visible="false">
+            <div class="formData" id="lastNameForm">
               <label for="last">Nom</label><br>
               <input class="text-control" type="text" id="last" name="last" /><br>
             </div>
-            <div class="formData" data-error="Mail non valide" data-error-visible="false">
+            <div class="formData" id="emailForm">
               <label for="email">E-mail</label><br>
               <input class="text-control" type="email" id="email" name="email" /><br>
             </div>
-            <div class="formData">
+            <div class="formData" id="birthdateForm">
               <label for="birthdate">Date de naissance</label><br>
               <input class="text-control" type="date" id="birthdate" name="birthdate" /><br>
             </div>
-            <div class="formData" data-error="Quantité non valide" data-error-visible="false">
+            <div class="formData" id="quantityForm">
               <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
               <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
             </div>
             <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
-            <div class="formData" data-error="Erreur de localisation" data-error-visible="false">
+            <div class="formData" id="selectedLocationForm">
               <input class="checkbox-input" type="radio" id="location1" name="location" value="New York" />
               <label class="checkbox-label" for="location1">
                 <span class="checkbox-icon"></span>
@@ -103,7 +103,7 @@
                 <span class="checkbox-icon"></span>
                 Portland</label>
             </div>
-            <div class="formData" data-error="Erreur de conditions générales" data-error-visible="false">
+            <div class="formData" id="checkbox1Form">
               <input class="checkbox-input" type="checkbox" id="checkbox1" checked />
               <label class="checkbox2-label" for="checkbox1" required>
                 <span class="checkbox-icon"></span>
@@ -117,14 +117,7 @@
               </label>
               <br>
             </div>
-            <!-- <input
-                class="btn-submit"
-                type="submit"
-                class="button"
-                value="C'est parti"
-              /> -->
             <input class="btn-submit" type="button" class="button" value="C'est parti" onclick="validateForm()" />
-
           </form>
         </div>
       </div>
