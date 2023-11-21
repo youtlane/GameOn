@@ -12,21 +12,7 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closeIcon = document.querySelector(".close");
-const firstName = document.getElementById('first').value;
-const firstNameForm = document.getElementById('firstNameForm');
-const lastName = document.getElementById('last').value;
-const lastNameForm = document.getElementById('lastNameForm');
-const email = document.getElementById('email').value;
-const emailForm = document.getElementById('emailForm');
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const birthdate = document.getElementById('birthdate').value;
-const birthdateForm = document.getElementById('birthdateForm');
-const quantity = document.getElementById('quantity').value;
-const quantityForm = document.getElementById('quantityForm');
-const selectedLocation = document.querySelector('input[name="location"]:checked');
-const selectedLocationForm = document.getElementById('selectedLocationForm');
-const checkbox1 = document.getElementById('checkbox1');
-const checkbox1Form = document.getElementById('checkbox1Form');
+
 
 
 
@@ -49,83 +35,143 @@ closeIcon.addEventListener('click', function () {
 });
 
 
-// Fonction submit du formulaire
-function validate() {
-  // Vérification de la validation du formulaire avant submit
-  if (this.validateForm()) {
-    document.forms["reserve"].submit();
-  } else {
-    return false;
-  }
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function verifInput(condition, nameForm, errorMessage) {
+  console.log("verifInput");
+  return new Promise((resolve) => {
+    console.log("verifInput in", condition);
+
+    if (condition) {
+      nameForm.setAttribute('data-error-visible', 'true');
+      nameForm.setAttribute('data-error', errorMessage);
+      resolve(true); // Error exists
+    } else {
+      nameForm.setAttribute('data-error-visible', 'false');
+      resolve(false); // No error
+    }
+  });
 }
 
+//Pour vérifier le resolve : Attente 6 secondes
+// function verifInput2(condition, nameForm, errorMessage) {
+//   console.log("verifInput");
+//   return new Promise((resolve) => {
+//     console.log("verifInput in", condition);
+//     // Ajoutez un délai de 5 secondes avant de résoudre la promesse
+//     setTimeout(() => {
+//       if (condition) {
+//         nameForm.setAttribute('data-error-visible', 'true');
+//         nameForm.setAttribute('data-error', errorMessage);
+//         resolve(true); // Error exists
+//       } else {
+//         nameForm.setAttribute('data-error-visible', 'false');
+//         resolve(false); // No error
+//       }
+//     }, 5000); // Délai de 5000 millisecondes (5 secondes)
 
-// Fields verification
-function verifInput(condition, nameForm, errorExist, errorMessage) {
-  if (condition) {
-    nameForm.setAttribute('data-error-visible', 'true');
-    nameForm.setAttribute('data-error', errorMessage);
-    errorExist = true;
-  } else {
-    nameForm.setAttribute('data-error-visible', 'false');
-  }
+//   });
+// }
+
+async function validateForm() {
+    console.log('o ');
+    let errorExist = false;
+
+    // Validate First Name
+    const firstName = document.getElementById('first').value;
+    const firstNameForm = document.getElementById('firstNameForm');
+    const firstNameCondition = firstName.length < 2;
+    const firstNameError = 'Veuillez entrer 2 caractères ou plus pour le champ du prénom.';
+    if (await verifInput(firstNameCondition, firstNameForm, firstNameError)) {
+      errorExist = true;
+    }
+
+    // Validate Last Name
+    const lastName = document.getElementById('last').value;
+    const lastNameForm = document.getElementById('lastNameForm');
+    const lastNameCondition = lastName.length < 2;
+    const lastNameError = 'Veuillez entrer 2 caractères ou plus pour le champ du nom.';
+    if (await verifInput(lastNameCondition, lastNameForm, lastNameError)) {
+      errorExist = true;
+    }
+
+    // Validate Email
+    const email = document.getElementById('email').value;
+    const emailForm = document.getElementById('emailForm');
+    const emailCondition = !emailRegex.test(email);
+    const emailError = 'Email non valide.';
+    if (await verifInput(emailCondition, emailForm, emailError)) {
+      errorExist = true;
+    }
+
+    // Validate birthdate
+    const birthdate = document.getElementById('birthdate').value;
+    const birthdateForm = document.getElementById('birthdateForm');
+    const birthdateCondition = !birthdate;
+    const birthdateError = 'Vous devez entrer votre date de naissance.';
+    if (await verifInput(birthdateCondition, birthdateForm, birthdateError)) {
+      errorExist = true;
+    }
+
+    // Validate Quantity
+    const quantity = document.getElementById('quantity').value;
+    const quantityForm = document.getElementById('quantityForm');
+    const quantityCondition = quantity === '' || quantity.length < 0;
+    const quantityError = 'Veuillez entrer un numéro.';
+
+    console.log();
+    if (await verifInput(quantityCondition, quantityForm, quantityError)) {
+      errorExist = true;
+    }
+
+    // Validate Location
+    const selectedLocation = document.querySelector('input[name="location"]:checked');
+    const selectedLocationForm = document.getElementById('selectedLocationForm');
+    const locationCondition = !selectedLocation;
+    const locationError = 'Vous devez choisir une option.';
+    if (await verifInput(locationCondition, selectedLocationForm, locationError)) {
+      errorExist = true;
+    }
+
+    // Validate conditions générales
+    const checkbox1 = document.getElementById('checkbox1');
+    const checkbox1Form = document.getElementById('checkbox1Form');
+    const checkboxCondition = !checkbox1.checked;
+    const checkboxError = 'Vous devez vérifier que vous acceptez les termes et conditions.';
+    if (await verifInput(checkboxCondition, checkbox1Form, checkboxError)) {
+      errorExist = true;
+    }
+
+
+    console.log('isValid ', errorExist);
+
+    // Resolve with the result of the validation
+    return !errorExist;
 }
 
+// function validate() {
+//   event.preventDefault(); // Empêcher le comportement de soumission par défaut du formulaire
 
-function validateForm() {
-  let errorExist = false;
+//   validateForm().then((isValid) => {
+//     console.log('isValid ', isValid);
+//     if (isValid) {
+//       // document.forms["reserve"].submit();
+//     } else {
+//       return false
+//     }
+//   });
+// }
 
-  // Validate First Name
-  
-  const firstNamecondition = firstName.length < 2;
-  const firstNameError = 'Veuillez entrer 2 caractères ou plus pour le champ du prénom.'
-  verifInput(firstNamecondition, firstNameForm, errorExist, firstNameError);
+async function validate() {
+    event.preventDefault(); // Empêcher le comportement de soumission par défaut du formulaire
 
-  // Validate Last Name
-  
-  const lastNameCondition = lastName.length < 2
-  const lastNameError = 'Veuillez entrer 2 caractères ou plus pour le champ du nom.'
-  verifInput(lastNameCondition, lastNameForm, errorExist, lastNameError);
-
-  // Validate Email
-  
-  
-  const emailCondition = !emailRegex.test(email);
-  const emailError = 'Email non valide.'
-  verifInput(emailCondition, emailForm, errorExist, emailError);
-
-  // Validate birthdate
-  
-  const birthdateCondition = !birthdate;
-  const birthdateError = 'Vous devez entrer votre date de naissance.';
-  verifInput(birthdateCondition , birthdateForm, errorExist, birthdateError);
-
-  // Validate Quantity
-  
-  const quantityCondition = quantity.length < 0
-  const quantityError = 'Veuillez entrer une numéro.'
-  verifInput(quantityCondition, quantityForm, errorExist, quantityError);
-
-  // Validate Location
-  
-  const loacationCondition = !selectedLocation ;
-  const locationError = 'Vous devez choisir une option.'
-  verifInput(loacationCondition, selectedLocationForm, errorExist, locationError);
-
-  // Validate conditions générales
-  
-  const checkboxCondition = !checkbox1.checked ;
-  const checkboxError = 'Vous devez vérifier que vous acceptez les termes et conditions.'
-  verifInput(checkboxCondition, checkbox1Form, errorExist, checkboxError);
-
-  // Si il existe un problème je ne submit pas 
-  if (errorExist) {
-    return false;
+  try {
+    const isValid = await validateForm();
+    console.log("xmen", isValid);
+    if (isValid) {
+      document.forms["reserve"].submit();
+    }
+  } catch (error) {
+    console.error('Une erreur est survenue lors de la validation:', error);
   }
-
-  // Si tout est OK je submit le formulaire
-  // document.forms["reserve"].submit();
 }
-
-
-
