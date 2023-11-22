@@ -9,7 +9,10 @@ function editNav() {
 
 // DOM Elements
 const modalbg = document.querySelector(".bground");
+const formsReser = document.querySelector(".formsReservation");
+const modalok = document.querySelector(".modal_passed");
 const modalBtn = document.querySelectorAll(".modal-btn");
+//const content = document.querySelectorAll(".content");
 const formData = document.querySelectorAll(".formData");
 const closeIcon = document.querySelector(".close");
 
@@ -31,6 +34,12 @@ function launchModal() {
 // close form
 closeIcon.addEventListener('click', function () {
   // Masquer le formulaire
+  modalbg.style.display = "none";
+});
+
+// close modal passed
+const mdpassedclose = document.getElementById('mdclose');
+mdpassedclose.addEventListener('click', function () {
   modalbg.style.display = "none";
 });
 
@@ -169,7 +178,9 @@ async function validate() {
     const isValid = await validateForm();
     console.log("xmen", isValid);
     if (isValid) {
-      document.forms["reserve"].submit();
+      //document.forms["reserve"].submit();
+      formsReser.style.display = "none";
+      modalok.style.display = "flex"; 
     }
   } catch (error) {
     console.error('Une erreur est survenue lors de la validation:', error);

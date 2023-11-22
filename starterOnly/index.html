@@ -55,7 +55,7 @@
       <div class="content">
         <span class="close"></span>
         <div class="modal-body">
-          <form name="reserve" action="index.html" method="get" onsubmit="return validate();">
+          <form name="reserve" action="index.html" method="get" onsubmit="return validate();" class="formsReservation">
             <div class="formData" id="firstNameForm">
               <label for="first">Prénom</label><br>
               <input class="text-control" type="text" id="first" name="first" />
@@ -119,10 +119,19 @@
             </div>
             <input class="btn-submit button" type="submit" value="C'est parti" />
           </form>
+          <div class="modal_passed">
+            <div class="modal_content">
+                <h2>Merci ! Votre réservation a été reçue.</h2>
+                <button class="btn-submit button" type="button" id="mdclose">Fermer</button>
+            </div>
+        </div>
         </div>
       </div>
     </div>
+
+    
   </main>
+ 
   <footer>
     <p class="copyrights">
       Copyright 2014 - 2022, GameOn Inc.
