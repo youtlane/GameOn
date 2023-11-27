@@ -10,9 +10,8 @@ function editNav() {
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const formsReser = document.querySelector(".formsReservation");
-const modalok = document.querySelector(".modal_passed");
+const modalok = document.querySelector(".hide");
 const modalBtn = document.querySelectorAll(".modal-btn");
-//const content = document.querySelectorAll(".content");
 const formData = document.querySelectorAll(".formData");
 const closeIcon = document.querySelector(".close");
 
@@ -30,24 +29,24 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 function launchModal() {
   modalbg.style.display = "block";
 }
-
+//********************************** a refaire le  close of passed modal icon */
 // close form
 closeIcon.addEventListener('click', function () {
   // Masquer le formulaire
+  console.log('closeIcon');
   modalbg.style.display = "none";  
-  
-});
-closeIcon.addEventListener('click', function () {
-  // Masquer le formulaire
   modalok.style.display = "none";
+
   
 });
+//********************************************************************************* */
 
 
+// close modal passed btn fermer
+ const mdpassedclose = document.getElementById('mdclose');
+ mdpassedclose.addEventListener('click', function () {
+  console.log('closeIcon');
 
-// close modal passed
-const mdpassedclose = document.getElementById('mdclose');
-mdpassedclose.addEventListener('click', function () {
   modalbg.style.display = "none";
   
 });
@@ -70,26 +69,6 @@ function verifInput(condition, nameForm, errorMessage) {
     }
   });
 }
-
-//Pour vérifier le resolve : Attente 6 secondes
-// function verifInput2(condition, nameForm, errorMessage) {
-//   console.log("verifInput");
-//   return new Promise((resolve) => {
-//     console.log("verifInput in", condition);
-//     // Ajoutez un délai de 5 secondes avant de résoudre la promesse
-//     setTimeout(() => {
-//       if (condition) {
-//         nameForm.setAttribute('data-error-visible', 'true');
-//         nameForm.setAttribute('data-error', errorMessage);
-//         resolve(true); // Error exists
-//       } else {
-//         nameForm.setAttribute('data-error-visible', 'false');
-//         resolve(false); // No error
-//       }
-//     }, 5000); // Délai de 5000 millisecondes (5 secondes)
-
-//   });
-// }
 
 async function validateForm() {
   console.log('o ');
@@ -167,19 +146,6 @@ async function validateForm() {
   return !errorExist;
 }
 
-// function validate() {
-//   event.preventDefault(); // Empêcher le comportement de soumission par défaut du formulaire
-
-//   validateForm().then((isValid) => {
-//     console.log('isValid ', isValid);
-//     if (isValid) {
-//       // document.forms["reserve"].submit();
-//     } else {
-//       return false
-//     }
-//   });
-// }
-
 async function validate() {
   event.preventDefault();
 
@@ -191,7 +157,7 @@ async function validate() {
     if (isValid) {
       //document.forms["reserve"].submit();
       formsReser.style.display = "none";
-      modalok.style.display = "flex";
+      modalok.style.display = "block";
     }
   } catch (error) {
     console.error('Une erreur est survenue lors de la validation:', error);

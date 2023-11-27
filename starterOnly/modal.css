@@ -157,7 +157,7 @@ main {
   font-size: 16px;
 }
 
-.bground , .modal_passed {
+.bground {
   display: none;
   position: fixed;
   z-index: 1;
@@ -169,7 +169,7 @@ main {
   background-color: rgba(26, 39, 156, 0.4);
 }
 
-.content , .modal_content {
+.content , .modal_passed {
   margin: 5% auto;
   width: 100%;
   max-width: 500px;
@@ -181,7 +181,9 @@ main {
   position: relative;
   color: #fff;
   padding-top: 10px;
+  min-height: 600px;
 }
+
 
 .modal-body {
   padding: 15px 8%;
@@ -526,16 +528,18 @@ footer {
     opacity: 1;
   }
 }
+.hide {
+  display: none;
+}
 
-.modal_content {
+.modal_passed {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
+  justify-content: space-between;
 }
-.modal_content h2{
+.modal_passed h2{
   text-align: center;
   font-size: 36px;
   font-family: "DMSans-Regular", sans-serif;
+  margin-top: 250px;
 }
