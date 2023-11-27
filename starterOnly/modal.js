@@ -6,7 +6,6 @@ function editNav() {
     x.className = "topnav";
   }
 }
-
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const formsReser = document.querySelector(".formsReservation");
@@ -16,11 +15,9 @@ const formData = document.querySelectorAll(".formData");
 const closeIcon = document.querySelector(".close");
 
 
-
-
-
 if (modalbg == null) throw new Error("No modal background found");
 if (closeIcon == null) throw new Error("No close icon found");
+
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -29,35 +26,26 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 function launchModal() {
   modalbg.style.display = "block";
 }
-//********************************** a refaire le  close of passed modal icon */
+
 // close form
 closeIcon.addEventListener('click', function () {
   // Masquer le formulaire
   console.log('closeIcon');
-  modalbg.style.display = "none";  
-  modalok.style.display = "none";
-
-  
+  modalbg.style.display = "none";
 });
-//********************************************************************************* */
-
 
 // close modal passed btn fermer
- const mdpassedclose = document.getElementById('mdclose');
- mdpassedclose.addEventListener('click', function () {
+  const mdpassedclose = document.getElementById('mdclose');
+  mdpassedclose.addEventListener('click', function () {
   console.log('closeIcon');
-
   modalbg.style.display = "none";
-  
 });
-
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function verifInput(condition, nameForm, errorMessage) {
-  console.log("verifInput");
   return new Promise((resolve) => {
-    console.log("verifInput in", condition);
+    console.log("verifInput is", condition);
 
     if (condition) {
       nameForm.setAttribute('data-error-visible', 'true');
@@ -71,7 +59,6 @@ function verifInput(condition, nameForm, errorMessage) {
 }
 
 async function validateForm() {
-  console.log('o ');
   let errorExist = false;
 
   // Validate First Name
@@ -138,28 +125,22 @@ async function validateForm() {
   if (await verifInput(checkboxCondition, checkbox1Form, checkboxError)) {
     errorExist = true;
   }
-
-
-  console.log('isValid ', errorExist);
-
   // Resolve with the result of the validation
   return !errorExist;
 }
 
+
+
 async function validate() {
   event.preventDefault();
-
   // Empêcher le comportement de soumission par défaut du formulaire
-
-  try {
     const isValid = await validateForm();
-    console.log("xmen", isValid);
     if (isValid) {
       //document.forms["reserve"].submit();
       formsReser.style.display = "none";
       modalok.style.display = "block";
+    } else {
+      console.error('Une erreur est survenue lors de la validation:');
     }
-  } catch (error) {
-    console.error('Une erreur est survenue lors de la validation:', error);
-  }
+
 }
