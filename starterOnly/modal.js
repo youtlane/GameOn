@@ -5,6 +5,12 @@ function editNav() {
   } else {
     x.className = "topnav";
   }
+  var y = document.querySelector(".navigation");
+  if (y.className === "navigation"){
+    y.className+= " visible";
+  } else{
+    y.className = "navigation";
+  }
 }
 // DOM Elements
 const modalbg = document.querySelector(".bground");
@@ -32,12 +38,14 @@ closeIcon.addEventListener('click', function () {
   // Masquer le formulaire
   console.log('closeIcon');
   modalbg.style.display = "none";
+  
 });
 
 // close modal passed btn fermer
   const mdpassedclose = document.getElementById('mdclose');
   mdpassedclose.addEventListener('click', function () {
   console.log('closeIcon');
+  document.forms["reserve"].submit();
   modalbg.style.display = "none";
 });
 
@@ -57,6 +65,8 @@ function verifInput(condition, nameForm, errorMessage) {
     }
   });
 }
+
+
 
 async function validateForm() {
   let errorExist = false;
@@ -91,7 +101,10 @@ async function validateForm() {
   // Validate birthdate
   const birthdate = document.getElementById('birthdate').value;
   const birthdateForm = document.getElementById('birthdateForm');
-  const birthdateCondition = !birthdate || new Date(birthdate) < new Date('1900-01-01') || new Date(birthdate) > new Date('2005-12-31');
+  const currentDate = new Date();
+  const userBirthdate = new Date( birthdate );
+  const age = currentDate.getFullYear() - userBirthdate.getFullYear();
+  const birthdateCondition = !birthdate || age < 18 || age > 80;
   const birthdateError = 'Vous devez entrer votre date de naissance.';
   if (await verifInput(birthdateCondition, birthdateForm, birthdateError)) {
     errorExist = true;
@@ -130,15 +143,15 @@ async function validateForm() {
 }
 
 
-
 async function validate() {
   event.preventDefault();
   // Empêcher le comportement de soumission par défaut du formulaire
     const isValid = await validateForm();
     if (isValid) {
-      //document.forms["reserve"].submit();
+      
       formsReser.style.display = "none";
       modalok.style.display = "block";
+      
     } else {
       console.error('Une erreur est survenue lors de la validation:');
     }

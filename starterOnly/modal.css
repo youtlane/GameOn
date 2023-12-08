@@ -39,6 +39,7 @@ img {
 }
 .main-navbar {
     float: right;
+
 }
 .topnav a {
   float: left;
@@ -81,7 +82,7 @@ img {
   .topnav.responsive .icon {
     position: absolute;
     right: 0;
-    top: 0;
+    top: 0; 
   }
   .topnav.responsive a {
     float: none;
@@ -89,7 +90,9 @@ img {
     text-align: left;
   }
 }
-
+.topnav{
+  margin: 30px;
+}
 
 
  @media screen and (max-width: 540px) {
@@ -97,7 +100,7 @@ img {
   .topnav a.icon {
     float: right;
     display: block;
-    margin-top: -15px;
+    margin:0;
   }
 } 
 
@@ -536,4 +539,24 @@ footer {
   font-size: 36px;
   font-family: "DMSans-Regular", sans-serif;
   margin-top: 250px;
+}
+
+.navigation{
+      
+      position: fixed;
+      z-index: 1000;
+      top: 50px;
+      right: 0;
+      background-color: white;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      margin: 40px;
+      opacity: 0;
+      visibility: hidden;
+}
+.visible{
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s, visibility 0.3s;
 }
